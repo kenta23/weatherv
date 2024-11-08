@@ -10,7 +10,7 @@ type backgroundStateTypes = {
 
 const initialValue = {
   icon_name: "",
-  time: "",
+  time: "day",
 };
 
 export const useWeatherBackground = create<backgroundStateTypes>((set) => {

@@ -1,8 +1,10 @@
+"use client";
+
 import MyWeatherInfo from "@/components/weather-mylocation";
 
-export default async function Page() {
+export default function Home() {
   return (
-    <div className="w-full h-full py-10">
+    <div className="w-full h-full min-h-screen py-10">
       <MyWeatherInfo />
     </div>
   );

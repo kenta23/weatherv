@@ -1,6 +1,5 @@
 import React from "react";
 import { IoMdSearch } from "react-icons/io";
-import { Input } from "./ui/input";
 
 export default function SearchInput() {
   return (

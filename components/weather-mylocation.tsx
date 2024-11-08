@@ -1,24 +1,15 @@
 "use client";
 
 import { WeatherData } from "@/types/weather";
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import { useWeatherBackground } from "@/store/store";
+import { useWeatherBackground } from "@/app/store/store";
 import { cn, formatDate } from "@/lib/utils";
 import SearchInput from "./search-input";
 import { IoLocationSharp } from "react-icons/io5";
+import { getMyWeatherData } from "@/actions/data";
 
-export default function MyWeatherInfo({
-  getMyWeatherData,
-}: {
-  getMyWeatherData: ({
-    lat,
-    lon,
-  }: {
-    lat: string;
-    lon: string;
-  }) => Promise<WeatherData | null>;
-}) {
+export default function MyWeatherInfo() {
   const [weatherData, setData] = useState<WeatherData | null>(null);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const cachedGetWeatherData = useCallback(getMyWeatherData, []);
@@ -41,12 +32,12 @@ export default function MyWeatherInfo({
 
           if (data?.weather[0].icon.lastIndexOf("n") !== -1) {
             setBackground(
-              data?.weather[0]?.description.toString() || "white",
+              data?.weather[0]?.description.toString() || "",
               "night"
             );
           } else {
             setBackground(
-              data?.weather[0]?.description.toString() || "white",
+              data?.weather[0]?.description.toString() || "",
               "day"
             );
           }
@@ -58,24 +49,27 @@ export default function MyWeatherInfo({
       );
     } else {
       setData(null);
+      setBackground("", "day");
       console.log("Geolocation is not supported by this browser.");
     }
   }, [cachedGetWeatherData, setBackground]);
 
   return (
-    <div className={cn("w-full h-full text-white")}>
-      <SearchInput />
+    <Suspense fallback={<p>Loading</p>}>
+      <div className={cn("w-full h-full text-white")}>
+        <SearchInput />
 
-      <main className="mt-[55px] mx-[85px]">
-        <WeatherInfo data={weatherData} />
-      </main>
-    </div>
+        <div className="mt-[55px] mx-[85px]">
+          <WeatherInfo data={weatherData} />
+        </div>
+      </div>
+    </Suspense>
   );
 }
 
 function WeatherInfo({ data }: { data: WeatherData | null }): JSX.Element {
   return (
-    <aside>
+    <div>
       {/**location and date */}
       <div className="flex items-start w-auto h-auto gap-3">
         <IoLocationSharp size={27} color="#D13535" />
@@ -86,6 +80,6 @@ function WeatherInfo({ data }: { data: WeatherData | null }): JSX.Element {
           </p>
         </div>
       </div>
-    </aside>
+    </div>
   );
 }

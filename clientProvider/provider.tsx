@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useWeatherBackground } from "@/store/store";
+import { useWeatherBackground } from "@/app/store/store";
 import Image from "next/image";
 import React from "react";
 
@@ -127,7 +127,7 @@ export default function BackgroundProvider({
         night: "04n",
       },
       name: "overcast clouds",
-      image_url: "",
+      image_url: "/broken_clouds.jpg",
       icon_url: {
         day: "https://openweathermap.org/img/wn/04d@2x.png",
         night: "https://openweathermap.org/img/wn/04n@2x.png",
@@ -135,7 +135,7 @@ export default function BackgroundProvider({
     },
   ];
 
-  const selectedBg = weatherCondition.find(
+  const selectedBg = weatherCondition?.find(
     ({ icon_name: { day, night } }) =>
       background.icon_name === day || background.icon_name === night
   );
@@ -156,14 +156,14 @@ export default function BackgroundProvider({
     >
       {/**OVERLAY BACKGROUND */}
       <Image
-        src={selectedBg?.image_url || "/"}
+        src={(selectedBg?.image_url as string) || "/stars.jpg"}
         alt="background overlay"
         className="absolute z-0 select-none top-0 object-cover mix-blend-soft-light"
         fill
         unoptimized
       />
 
-      <div className="relative z-10">{children}</div>
+      <div className="relative z-10 min-h-screen h-full">{children}</div>
     </div>
   );
 }

@@ -24,7 +24,7 @@ export async function getMyWeatherData({
       return null;
     }
 
-    console.log("RESPONSE FROM SERVER", response);
+    console.log("RESPONSE FROM SERVER", response.status);
     return (await response.data) || [];
   } catch (error) {
     console.log(error);
