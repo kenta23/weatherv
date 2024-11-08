@@ -1,10 +1,9 @@
-import { getMyWeatherData } from "@/actions/data";
 import MyWeatherInfo from "@/components/weather-mylocation";
 
-export default async function Home() {
+export default async function Page() {
   return (
-    <div className="w-full h-full">
-      <MyWeatherInfo getMyWeatherData={getMyWeatherData} />
+    <div className="w-full h-full py-10">
+      <MyWeatherInfo />
     </div>
   );
 }

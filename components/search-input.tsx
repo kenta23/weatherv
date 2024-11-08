@@ -4,7 +4,7 @@ import { Input } from "./ui/input";
 
 export default function SearchInput() {
   return (
-    <div className="mx-auto mt-[25px] flex items-center justify-center">
+    <div className="mx-auto flex items-center justify-center">
       <div className="w-[590px] bg-slate-600 flex items-center h-[50px] relative rounded-full">
         <IoMdSearch
           size={20}

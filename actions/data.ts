@@ -1,10 +1,8 @@
-"use cache";
+"use server";
 
 import { WeatherData } from "@/types/weather";
-import {
-  unstable_cacheLife as cacheLife,
-  unstable_cacheTag as cacheTag,
-} from "next/cache";
+import axios from "axios";
+import { revalidateTag } from "next/cache";
 
 export async function getMyWeatherData({
   lat,
@@ -16,27 +14,24 @@ export async function getMyWeatherData({
   const current_weather_api = process.env.CURRENT_WEATHER_BASE_URL as string;
   const API_KEY = process.env.API_KEY as string;
 
-  cacheLife("minutes");
-  cacheTag("localweatherdata");
-
   try {
-    const response = await fetch(
+    const response = await axios.get(
       current_weather_api +
         `lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
     );
 
-    if (!response.ok) {
+    if (!response.status) {
       return null;
     }
 
     console.log("RESPONSE FROM SERVER", response);
-    return (await response.json()) || [];
+    return (await response.data) || [];
   } catch (error) {
     console.log(error);
     return null;
   }
 }
 
-export async function getSeachedCityWeatherData(cityname: string) {
-  const geocoding_api = process.env.CURRENT_WEATHER_BASE_URL as string;
+export async function updateWeather() {
+  return revalidateTag("weatherData");
 }
