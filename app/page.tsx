@@ -1,11 +1,12 @@
-"use client";
-
 import MyWeatherInfo from "@/components/weather-mylocation";
+import { Suspense } from "react";
 
-export default function Home() {
+export default async function Page() {
   return (
-    <div className="w-full h-full min-h-screen py-10">
-      <MyWeatherInfo />
-    </div>
+    <Suspense fallback={<div>Loading...</div>}>
+      <div className="w-full h-full min-h-screen py-10">
+        <MyWeatherInfo />
+      </div>
+    </Suspense>
   );
 }

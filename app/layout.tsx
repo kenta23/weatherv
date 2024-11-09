@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import BackgroundProvider from "@/clientProvider/provider";
+import { Providers } from "@/clientProvider/queryclient";
+import HydrateQueryClient from "@/clientProvider/hydration";
 
 // const geistSans = localFont({
 //   src: "./fonts/GeistVF.woff",
@@ -29,7 +31,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <body className={`${inter.className} antialiased`}>
-        <BackgroundProvider>{children}</BackgroundProvider>
+        <Providers>
+          <BackgroundProvider>
+            <HydrateQueryClient>{children}</HydrateQueryClient>
+          </BackgroundProvider>
+        </Providers>
       </body>
     </html>
   );

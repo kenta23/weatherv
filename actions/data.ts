@@ -1,7 +1,6 @@
 "use server";
 
 import { WeatherData } from "@/types/weather";
-import axios from "axios";
 import { revalidateTag } from "next/cache";
 
 export async function getMyWeatherData({
@@ -15,7 +14,7 @@ export async function getMyWeatherData({
   const API_KEY = process.env.API_KEY as string;
 
   try {
-    const response = await axios.get(
+    const response = await fetch(
       current_weather_api +
         `lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
     );
@@ -25,7 +24,8 @@ export async function getMyWeatherData({
     }
 
     console.log("RESPONSE FROM SERVER", response.status);
-    return (await response.data) || [];
+
+    return (await response.json()) || [];
   } catch (error) {
     console.log(error);
     return null;
