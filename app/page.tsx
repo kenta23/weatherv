@@ -1,12 +1,14 @@
 import MyWeatherInfo from "@/components/weather-mylocation";
-import { Suspense } from "react";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "WeatherV",
+  description: "Current weather forecast",
+};
 export default async function Page() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <div className="w-full h-full min-h-screen py-10">
-        <MyWeatherInfo />
-      </div>
-    </Suspense>
+    <div className="w-full h-full min-h-screen">
+      <MyWeatherInfo />
+    </div>
   );
 }

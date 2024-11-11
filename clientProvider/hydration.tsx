@@ -1,4 +1,4 @@
-import { getMyWeatherData } from "@/actions/data";
+import { getAirQualityIndex, getMyWeatherData } from "@/actions/data";
 import {
   dehydrate,
   HydrationBoundary,
@@ -14,7 +14,7 @@ export default async function HydrateQueryClient({
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        staleTime: 120 * 1000, // 1 minute
+        staleTime: 120 * 1000, // 2 minutes
       },
     },
   });
@@ -32,6 +32,23 @@ export default async function HydrateQueryClient({
         lon: longitude.toString(),
       });
       return weatherData || [];
+    },
+  });
+
+  await queryClient.prefetchQuery({
+    queryKey: ["airQuality"],
+    queryFn: async () => {
+      const mylocation = await fetch("https://ipwho.is/")
+        .then((res) => res.json())
+        .then((data) => data);
+
+      const { latitude, longitude } = await mylocation;
+
+      const airQuality = await getAirQualityIndex({
+        lat: latitude.toString(),
+        lon: longitude.toString(),
+      });
+      return airQuality || [];
     },
   });
 
