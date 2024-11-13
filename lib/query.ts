@@ -1,4 +1,5 @@
-import { getAirQualityIndex, getMyWeatherData } from "@/actions/data";
+import { getAirQualityIndex, getMyWeatherData, getOneWeekForecast } from "@/actions/data";
+import { WeeklyWeatherApiResponse } from "@/types/weather";
 import { useQuery } from "@tanstack/react-query";
 
 export function useGetAirQuality() {
@@ -47,4 +48,23 @@ export function useGetWeatherInfo() {
       return data;
     },
   });
+}
+
+export function useGetWeeklyForecast({
+   lat,
+   lon
+}: { 
+  lat: number;
+  lon: number
+} ) { 
+  return useQuery({ 
+     queryKey: ["weeklyForecast"],
+     queryFn: async () => {
+         const data: WeeklyWeatherApiResponse | null = await getOneWeekForecast({ 
+          lat,
+          lon
+         })
+         return data || null;
+     }
+  })
 }

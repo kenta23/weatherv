@@ -1,6 +1,6 @@
 "use server";
 
-import { AirQualityData, WeatherData } from "@/types/weather";
+import { AirQualityData, WeatherData, WeeklyWeatherApiResponse } from "@/types/weather";
 import { revalidateTag } from "next/cache";
 
 export async function getMyWeatherData({
@@ -67,4 +67,32 @@ export async function getAirQualityIndex({
 
 export async function updateWeather() {
   return revalidateTag("weatherData");
+}
+
+
+export async function getOneWeekForecast({
+  lat,
+  lon,
+}: {
+  lat: number;
+  lon: number;
+}): Promise<WeeklyWeatherApiResponse | null> {
+  const API_KEY = process.env.API_KEY as string;
+  const API_URL = process.env.WEEKLY_FORECAST_API as string;
+
+  try {
+    const data = await fetch(
+      API_URL + `lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
+    );
+
+    if (!data) {
+      return null;
+    }
+
+    return (await data.json()) || [];
+
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 }

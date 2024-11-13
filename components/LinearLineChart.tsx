@@ -13,8 +13,8 @@ export function LinearLineChart({ label, value }: WeatherHighlightData) {
   const chartData =
     Array.isArray(value) && value.length >= 2
       ? [
-          { title: "Feels Like", temp: value[0].feels_like ?? 0 },
           { title: "Normal", temp: value[1].temp ?? 0 },
+          { title: "Feels Like", temp: value[0].feels_like ?? 0 },
         ]
       : [];
 
@@ -22,7 +22,7 @@ export function LinearLineChart({ label, value }: WeatherHighlightData) {
 
   const chartConfig = {
     temp: {
-      label: "Temperature",
+      label: "Temperature: ",
       color: "hsl(var(--chart-1))",
     },
   } satisfies ChartConfig;
@@ -36,6 +36,7 @@ export function LinearLineChart({ label, value }: WeatherHighlightData) {
         <CartesianGrid
           color="red"
           vertical={false}
+          horizontal={false}
           horizontalPoints={[0, 40]}
         />
 
@@ -53,9 +54,9 @@ export function LinearLineChart({ label, value }: WeatherHighlightData) {
 
         <Line
           dataKey="temp"
-          type="linear"
+          type="monotone"
           stroke="#ffff"
-          strokeWidth={2}
+          strokeWidth={4}
           dot={true}
         />
       </LineChart>

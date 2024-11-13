@@ -1,11 +1,10 @@
 "use client";
 
 import { WeatherData } from "@/types/weather";
-import { Suspense, useEffect } from "react";
+import { useEffect } from "react";
 import { useWeatherBackground } from "@/app/store/store";
 import { cn } from "@/lib/utils";
 import SearchInput from "./search-input";
-import AirQuality from "./airquality-display";
 import { WeatherInfo } from "./weather-info";
 import { useGetWeatherInfo } from "@/lib/query";
 
@@ -40,12 +39,6 @@ export default function MyWeatherInfo() {
         <WeatherInfo data={weatherData as WeatherData} />
       </div>
 
-      {/**AIR QUALITY INDEX */}
-      <div className="mt-[45px] w-full h-auto py-4">
-        <Suspense fallback={<div>Loading...</div>}>
-          <AirQuality />
-        </Suspense>
-      </div>
     </div>
   );
 }

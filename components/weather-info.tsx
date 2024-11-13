@@ -1,5 +1,5 @@
 import { formatDate } from "@/lib/utils";
-import { WeatherData } from "@/types/weather";
+import { Coord, WeatherData } from "@/types/weather";
 import Image from "next/image";
 import React, { Suspense, useState } from "react";
 import { FaEye } from "react-icons/fa";
@@ -15,6 +15,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { getAirQualityIndex } from "@/actions/data";
 import WeatherHighlights from "./weather-highlights";
+import WeeklyForecast from "./weekly-forecast";
 
 export type WeatherHighlightData = {
   label: string;
@@ -39,10 +40,12 @@ export function WeatherInfo({
       label: "Feels like",
       value: [{ feels_like: data?.main.feels_like }, { temp: data?.main.temp }],
     },
-    { label: "Precipitation", value: data?.rain["1h"] || "No data" },
+    { label: "Precipitation", value: data?.rain?.["1h"] || "No data" },
     { label: "Cloudiness", value: data?.clouds.all },
-    { label: "Sunrise", value: data?.sys.sunrise },
-    { label: "Sunset", value: data?.sys.sunset },
+    {
+      label: "Sunrise & Sunset",
+      value: [{ sunrise: data?.sys.sunrise }, { sunset: data?.sys.sunset }],
+    },
   ]);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -131,7 +134,7 @@ export function WeatherInfo({
       </div>
 
       {/**weather description */}
-      <div className="relative z-50 bg-slate-400 flex flex-col py-2 gap-[80px] items-center justify-center">
+      <div className="relative z-50  flex flex-col py-2 gap-[80px] items-center justify-center">
         <div className="w-full">
           <div className="flex flex-1 flex-col items-center justify-center">
             <Image
@@ -192,9 +195,19 @@ export function WeatherInfo({
 
         <div className="flex justify-center flex-wrap w-full items-center">
           <Suspense fallback={<div>{"Loading..."}</div>}>
-            <WeatherHighlights data={weatherHighlights} />
+            <WeatherHighlights data={weatherHighlights}/>
           </Suspense>
         </div>
+      </div>
+
+
+
+      {/* ONE WEEK WEATHER FORECAST */}
+
+      <div className="space-y-6 w-full">
+         <h2 className="text-[30px] font-medium mt-7">This Week Forecast</h2>
+
+          <WeeklyForecast coord={data?.coord as Coord} />
       </div>
     </div>
   );
