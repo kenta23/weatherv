@@ -3,7 +3,7 @@ import { formatDate } from '@/lib/utils'
 import { Coord, WeeklyWeatherApiResponse } from '@/types/weather'
 import React from 'react'
 import { fromUnixTime, format } from 'date-fns';
-
+import Image from 'next/image';
 
 export default function WeeklyForecast ({ coord } : { coord: Coord }) {
   
@@ -39,27 +39,46 @@ export default function WeeklyForecast ({ coord } : { coord: Coord }) {
 
 
     console.log(dailyForecast)
-
+ 
  return (
-    <div>
-        <p>Date now {fromUnixTime(1731477600).toLocaleTimeString()}</p>
-        <p>date in date {new Date().toLocaleDateString()}</p>
+     <div className='grid-cols-1  sm:grid md:flex gap-6 w-full overflow-x-auto'>
+       {dailyForecast?.slice(1).map((item, index) => (
+         <div
+           className="bg-[#E8EDF0]/20 rounded-[20px] backdrop-opacity-10 w-[280px] h-[265px] px-1 py-2  rounded[20px]"
+           key={index}
+         >
+           <div className="flex opacity-100 flex-col gap-3">
+             <h4 className='text-center w-auto text-[22px]'>{format(fromUnixTime(item.dt), 'EEEE')}</h4>
+             
 
-        <br />
-        <br />
+             <div className='space-y-3'>
+                 {/**ICON, TEMPERATURE */}
 
-      
-        {dailyForecast?.slice(1).map((item, index) => (
-        <div key={index}>
-          <p>Date: {format(fromUnixTime(item.dt), 'EEEE, MMMM d')}</p>
-          <p>Temperature: {item.main.temp} °C</p>
-          <p>Wind Speed: {item.wind.speed} m/s</p>
-          <p>Weather: {item.weather[0].description}</p>
+                 <div className='flex flex-col items-center'>
+                      <Image 
+                        src={`http://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
+                        alt={item.weather[0].description}
+                        width={95}
+                        height={120}
+                        priority
+                      />
 
-          <br />
-        </div>
-      ))}
-    </div>
-  )
+                      <p className='text-[25px] -mt-2 font-medium'>{item.main.temp} °C</p>
+                 </div>
+
+
+                 <div className='items-center gap-1 flex flex-col'>
+                     {/**LOW AND HIGH TEMP */}
+                     <p className='text-sm font-light text-gray-100'>Low: {item.main.temp_min} °C</p>
+                     <p className='text-sm font-light text-gray-100'>High: {item.main.temp_min} °C</p>
+                 </div>
+             </div>
+           </div>
+
+           <br />
+         </div>
+       ))}
+     </div>
+ );
 
 }

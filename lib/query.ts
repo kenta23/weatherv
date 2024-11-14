@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 export function useGetAirQuality() {
   return useQuery({
     queryKey: ["airQuality"],
+    refetchInterval: 150 * 1000,
     queryFn: async () => {
       try {
         const mylocation = await fetch("https://ipwho.is/")
@@ -59,6 +60,7 @@ export function useGetWeeklyForecast({
 } ) { 
   return useQuery({ 
      queryKey: ["weeklyForecast"],
+     refetchInterval: 150 * 1000,
      queryFn: async () => {
          const data: WeeklyWeatherApiResponse | null = await getOneWeekForecast({ 
           lat,

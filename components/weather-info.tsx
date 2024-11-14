@@ -143,11 +143,11 @@ export function WeatherInfo({
               quality={100}
               width={200}
               height={800}
-              className=""
+              className="drop-shadow-lg"
             />
             <div className="flex -mt-2 flex-col items-center gap-1">
               <p className="text-[40px] font-medium">{data?.main.temp}°C</p>
-              <p className="text-[20px] font-light">
+              <p className="text-[20px] font-normal">
                 {data?.weather[0].description.charAt(0).toUpperCase()}
                 {data?.weather[0].description.slice(1)}
               </p>
@@ -203,11 +203,17 @@ export function WeatherInfo({
 
 
       {/* ONE WEEK WEATHER FORECAST */}
-
-      <div className="space-y-6 w-full">
+      <div className="space-y-6 mt-12 w-full">
          <h2 className="text-[30px] font-medium mt-7">This Week Forecast</h2>
 
           <WeeklyForecast coord={data?.coord as Coord} />
+      </div>
+
+
+
+      {/**WEATHER MAP */}
+      <div>
+          
       </div>
     </div>
   );
