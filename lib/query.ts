@@ -1,5 +1,5 @@
-import { getAirQualityIndex, getMyWeatherData, getOneWeekForecast } from "@/actions/data";
-import { WeeklyWeatherApiResponse } from "@/types/weather";
+import { getAirQualityIndex, getMyWeatherData, getOneWeekForecast, searchCity } from "@/actions/data";
+import { Cityname, WeeklyWeatherApiResponse } from "@/types/weather";
 import { useQuery } from "@tanstack/react-query";
 
 export function useGetAirQuality() {
@@ -8,7 +8,7 @@ export function useGetAirQuality() {
     refetchInterval: 150 * 1000,
     queryFn: async () => {
       try {
-        const mylocation = await fetch("https://ipwho.is/")
+        const mylocation = await fetch("http://ipwho.is/")
           .then((res) => res.json())
           .then((data) => data);
 
@@ -32,7 +32,7 @@ export function useGetWeatherInfo() {
     queryKey: ["weatherData"],
     refetchInterval: 150 * 1000,
     queryFn: async () => {
-      const mylocation = await fetch("https://ipwho.is/", {
+      const mylocation = await fetch("http://ipwho.is/", {
         cache: "no-store",
         next: { revalidate: 0 },
       })
@@ -69,4 +69,29 @@ export function useGetWeeklyForecast({
          return data || null;
      }
   })
+}
+
+export function useSearchCity(cityname: string) { 
+   return useQuery({
+     queryKey: ["searchCity"],
+     enabled: !!cityname,
+     staleTime: 0,
+     refetchOnMount: true,
+     gcTime: 0,
+     
+     
+     queryFn: async () => {
+         try {
+          const data = await searchCity(cityname);
+          if(!data) { 
+            return [];
+          }
+
+          return data as Cityname[];
+         } catch (error) {
+          console.log(error);
+          return [];
+         }
+     }
+   })
 }

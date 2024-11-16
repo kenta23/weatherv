@@ -1,5 +1,4 @@
 import { useGetWeeklyForecast } from '@/lib/query'
-import { formatDate } from '@/lib/utils'
 import { Coord, WeeklyWeatherApiResponse } from '@/types/weather'
 import React from 'react'
 import { fromUnixTime, format } from 'date-fns';
@@ -41,7 +40,7 @@ export default function WeeklyForecast ({ coord } : { coord: Coord }) {
     console.log(dailyForecast)
  
  return (
-     <div className='grid-cols-1  sm:grid md:flex gap-6 w-full overflow-x-auto'>
+     <div className='grid-cols-1 sm:grid md:flex gap-6 w-full overflow-x-auto'>
        {dailyForecast?.slice(1).map((item, index) => (
          <div
            className="bg-[#E8EDF0]/20 rounded-[20px] backdrop-opacity-10 w-[280px] h-[265px] px-1 py-2  rounded[20px]"

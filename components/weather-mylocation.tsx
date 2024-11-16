@@ -30,7 +30,7 @@ export default function MyWeatherInfo() {
   console.log("loading", isLoading);
 
   return (
-    <div className={cn("w-full h-full min-h-screen  text-white")}>
+    <div className={cn("w-full h-full min-h-screen first-letter:text-white")}>
       <SearchInput />
 
       {/* WEATHER HIGHLIGHTS */}

@@ -22,7 +22,7 @@ export default async function HydrateQueryClient({
   await queryClient.prefetchQuery({
     queryKey: ["weatherData"],
     queryFn: async () => {
-      const mylocation = await fetch("https://ipwho.is/")
+      const mylocation = await fetch("http://ipwho.is/")
         .then((res) => res.json())
         .then((data) => data);
 
@@ -38,7 +38,7 @@ export default async function HydrateQueryClient({
   await queryClient.prefetchQuery({
     queryKey: ["airQuality"],
     queryFn: async () => {
-      const mylocation = await fetch("https://ipwho.is/")
+      const mylocation = await fetch("http://ipwho.is/")
         .then((res) => res.json())
         .then((data) => data);
 

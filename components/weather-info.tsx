@@ -16,6 +16,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getAirQualityIndex } from "@/actions/data";
 import WeatherHighlights from "./weather-highlights";
 import WeeklyForecast from "./weekly-forecast";
+import WeatherMap from "./weather-map";
 
 export type WeatherHighlightData = {
   label: string;
@@ -134,7 +135,7 @@ export function WeatherInfo({
       </div>
 
       {/**weather description */}
-      <div className="relative z-50  flex flex-col py-2 gap-[80px] items-center justify-center">
+      <div className="relative  flex flex-col py-2 gap-[80px] items-center justify-center">
         <div className="w-full">
           <div className="flex flex-1 flex-col items-center justify-center">
             <Image
@@ -212,8 +213,10 @@ export function WeatherInfo({
 
 
       {/**WEATHER MAP */}
-      <div>
-          
+      <div className="space-y-6 mt-12 w-full">
+        
+          <h2 className="text-[30px] font-medium mt-7">Weather Map</h2>
+            <WeatherMap lat={data?.coord.lat as number} lon={data?.coord.lon as number}/>
       </div>
     </div>
   );

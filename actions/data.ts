@@ -1,6 +1,6 @@
 "use server";
 
-import { AirQualityData, WeatherData, WeeklyWeatherApiResponse } from "@/types/weather";
+import { AirQualityData, Cityname, WeatherData, WeeklyWeatherApiResponse } from "@/types/weather";
 import { revalidateTag } from "next/cache";
 
 export async function getMyWeatherData({
@@ -91,6 +91,34 @@ export async function getOneWeekForecast({
 
     return (await data.json()) || [];
 
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
+export async function getWeatherMap() { 
+   try {
+    
+   } catch (error) {
+    console.log(error);
+   }
+}
+
+export async function searchCity(cityname: string): Promise<Cityname[] | null> {
+  try {
+    const apiKey = process.env.API_KEY as string;
+    const geocoing_api = process.env.GEOCODING_API_URL as string;
+
+    const response = await fetch(
+      geocoing_api + `q=${cityname}&appid=${apiKey}`
+    );
+
+    if (response.status !== 200) {
+      return null;
+    }
+
+    return (await response.json()) || [];
   } catch (error) {
     console.log(error);
     return null;

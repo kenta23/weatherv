@@ -46,8 +46,8 @@ const weatherCondition = [
     name: "Rain",
     image_url:
       {
-        day: "/rain_1.gif",
-        night: "/rain_1.gif",
+        day: "/rainy_1.gif",
+        night: "/rainy_1.gif",
       },
     icon_url: {
       day: "https://openweathermap.org/img/wn/10d@2x.png",
