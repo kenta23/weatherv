@@ -1,4 +1,7 @@
-import React from "react";
+'use client';
+
+
+import React, { useEffect } from "react";
 import { LuWind } from "react-icons/lu";
 import {
   Label,
@@ -138,8 +141,8 @@ export default function WeatherHighlights({
 }: {
   data: WeatherHighlightData[];
 }) {
-  console.log(data);
 
+ 
 
   return (
     <div className="grid items-start gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full justify-center">

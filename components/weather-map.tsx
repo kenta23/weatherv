@@ -13,10 +13,10 @@ export default function WeatherMap({ lat, lon }: { lat: number; lon: number }) {
     <div style={{ height: "500px", width: "100%" }}>
       <MapContainer className='w-full h-f' center={position} zoom={13} scrollWheelZoom={false}>
         <TileLayer
-          url="https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=b140c36cb091fcad750501aa73058188"
+           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
            attribution='&copy; <a href="https://openweathermap.org/">OpenWeatherMap</a> contributors'
         />
-        <Marker position={[51.505, -0.09]}>
+        <Marker position={position}>
           <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.
           </Popup>

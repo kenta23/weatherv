@@ -1,14 +1,19 @@
+'use client';
+
 import { useGetWeeklyForecast } from '@/lib/query'
 import { Coord, WeeklyWeatherApiResponse } from '@/types/weather'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { fromUnixTime, format } from 'date-fns';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export default function WeeklyForecast ({ coord } : { coord: Coord }) {
   
     const {lat, lon } = coord
-    const { data } = useGetWeeklyForecast({lat, lon})
+    const { data } = useGetWeeklyForecast({ lat, lon })
+ 
 
+    
 
     // Filter data to include only one forecast per day at 12:00 PM if available
   const dailyForecast = data?.list.reduce<WeeklyWeatherApiResponse['list']>((acc, current) => {
@@ -33,11 +38,6 @@ export default function WeeklyForecast ({ coord } : { coord: Coord }) {
   }, []);
 
 
-    console.log('WEEKLY FORECAST', data)
-  
-
-
-    console.log(dailyForecast)
  
  return (
      <div className='grid-cols-1 sm:grid md:flex gap-6 w-full overflow-x-auto'>

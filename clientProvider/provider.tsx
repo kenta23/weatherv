@@ -96,8 +96,8 @@ const weatherCondition = [
     name: "clear sky",
     image_url:
       {
-         day: "/Sunny glare.jpg",
-          night: "/Sunny glare.jpg"
+          day: "/Sun glare.jpg",
+          night: "/Sun glare.jpg"
       },
 
     icon_url: {

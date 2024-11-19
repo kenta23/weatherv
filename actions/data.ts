@@ -111,16 +111,19 @@ export async function searchCity(cityname: string): Promise<Cityname[] | null> {
     const geocoing_api = process.env.GEOCODING_API_URL as string;
 
     const response = await fetch(
-      geocoing_api + `q=${cityname}&appid=${apiKey}`
+      geocoing_api + `q=${cityname}&appid=${apiKey}`,
+      {
+        cache: "no-store",
+      }
     );
 
     if (response.status !== 200) {
-      return null;
+      return [];
     }
 
     return (await response.json()) || [];
   } catch (error) {
     console.log(error);
-    return null;
+    return [];
   }
 }

@@ -1,7 +1,9 @@
+'use client';
+
 import { formatDate } from "@/lib/utils";
 import { Coord, WeatherData } from "@/types/weather";
 import Image from "next/image";
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { IoLocationSharp } from "react-icons/io5";
 import { LuWind } from "react-icons/lu";
@@ -17,6 +19,7 @@ import { getAirQualityIndex } from "@/actions/data";
 import WeatherHighlights from "./weather-highlights";
 import WeeklyForecast from "./weekly-forecast";
 import WeatherMap from "./weather-map";
+import { useRouter } from "next/navigation";
 
 export type WeatherHighlightData = {
   label: string;
@@ -49,26 +52,7 @@ export function WeatherInfo({
     },
   ]);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { data: airQuality } = useQuery({
-    queryKey: ["airQuality"],
-    queryFn: async () => {
-      try {
-        const res = await getAirQualityIndex({
-          lat: `${data?.coord.lat}`,
-          lon: `${data?.coord?.lon}`,
-        });
-
-        if (!res) return [];
-
-        return res;
-      } catch (error) {
-        console.log(error);
-        return;
-      }
-    },
-  });
-
+ 
   const storeWeatherInfo = [
     {
       id: 1,
@@ -116,6 +100,10 @@ export function WeatherInfo({
       value: `${data?.main.temp_max}°C`,
     },
   ];
+
+
+
+ 
 
   return (
     <div className="text-white w-full flex flex-col">
@@ -196,28 +184,26 @@ export function WeatherInfo({
 
         <div className="flex justify-center flex-wrap w-full items-center">
           <Suspense fallback={<div>{"Loading..."}</div>}>
-            <WeatherHighlights data={weatherHighlights}/>
+            <WeatherHighlights key={data?.id} data={weatherHighlights} />
           </Suspense>
         </div>
       </div>
 
-
-
       {/* ONE WEEK WEATHER FORECAST */}
       <div className="space-y-6 mt-12 w-full">
-         <h2 className="text-[30px] font-medium mt-7">This Week Forecast</h2>
+        <h2 className="text-[30px] font-medium mt-7">This Week Forecast</h2>
 
-          <WeeklyForecast coord={data?.coord as Coord} />
+        <WeeklyForecast key={data?.id} coord={data?.coord as Coord} />
       </div>
-
-
 
       {/**WEATHER MAP */}
-      <div className="space-y-6 mt-12 w-full">
-        
-          <h2 className="text-[30px] font-medium mt-7">Weather Map</h2>
-            <WeatherMap lat={data?.coord.lat as number} lon={data?.coord.lon as number}/>
-      </div>
+      {/* <div className="space-y-6 mt-12 w-full">
+        <h2 className="text-[30px] font-medium mt-7">Weather Map</h2>
+        <WeatherMap
+          lat={data?.coord.lat as number}
+          lon={data?.coord.lon as number}
+        />
+      </div> */}
     </div>
   );
 }

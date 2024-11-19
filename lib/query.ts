@@ -27,23 +27,15 @@ export function useGetAirQuality() {
   });
 }
 
-export function useGetWeatherInfo() {
+export function useGetWeatherInfo({ lat, lon }: { lat: number; lon: number }) {
   return useQuery({
     queryKey: ["weatherData"],
     refetchInterval: 150 * 1000,
     queryFn: async () => {
-      const mylocation = await fetch("http://ipwho.is/", {
-        cache: "no-store",
-        next: { revalidate: 0 },
-      })
-        .then((res) => res.json())
-        .then((data) => data);
-
-      const { latitude, longitude } = await mylocation;
 
       const data = await getMyWeatherData({
-        lat: latitude.toString(),
-        lon: longitude.toString(),
+        lat: lat.toString(),
+        lon: lon.toString(),
       });
 
       return data;

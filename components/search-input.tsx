@@ -6,7 +6,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
-import { FaLocationArrow, FaMapPin } from "react-icons/fa";
+import { FaMapPin } from "react-icons/fa";
 import { IoMdSearch } from "react-icons/io";
 import { useDebounce } from 'use-debounce';
 
@@ -17,7 +17,7 @@ export default function SearchInput() {
   const [text, setText] = useState<string>('');
   const [debouncedText] = useDebounce(text, 500);  
   const queryclient = useQueryClient();
-  const {data, error, isPending } = useSearchCity(debouncedText);
+  const {data, error, isPending } = useSearchCity(decodeURIComponent(debouncedText));
 
 if (error) console.log(error);
 
@@ -31,7 +31,7 @@ if (error) console.log(error);
       await queryclient.prefetchQuery({
         queryKey: ["searchCity"],
         queryFn: () => {
-          const data = searchCity(debouncedText);
+          const data = searchCity(decodeURIComponent(debouncedText));
           return data;
         },
       });
@@ -58,13 +58,13 @@ if (error) console.log(error);
         {/**Search suggestion list */}
 
         {text.length > 0 && (
-          <div className="absolute px-6 py-2 rounded-lg w-full h-auto min-h-[75px] top-[105%] z-10 left-0  bg-white">
+          <div className="absolute px-6 py-2 rounded-lg w-full h-auto min-h-[55px] top-[105%] z-10 left-0  bg-white">
             {isPending ? (
               <p>Loading....</p>
             ) : (
               <div className="overflow-y-auto max-h-[250px]">
-               {data?.map((item, i) => (
-                     <div key={i} className="flex pb-2 items-center borer-b-[#E5E7EB] border-b-[1px] justify-between gap-3">
+               {data && data?.length > 0 ? data?.map((item, i) => (
+                   <Link href={`/city/${item.local_names.en}`}  key={i} className="flex cursor-pointer hover:text-red-400 transition-colors group duration-150 ease-out pb-2 items-center  border-b-[#E5E7EB] border-b-[1px] justify-between gap-3">
                        <div className="flex gap-1 items-center">
                          <FaMapPin color="#FF6392" className="" size={18} />
                          <h3 className="text-[17px] font-medium">
@@ -73,14 +73,16 @@ if (error) console.log(error);
                        </div>
      
                        <div className="flex items-center gap-2">
-                         <div className="text-gray-400 flex gap-2">
-                           <p className="font-light text-sm">lat: {item.lat}</p>
-                           <p className="font-light text-sm">lon: {item.lon}</p>
+                         <div className="text-gray-400 flex gap-2 group-hover:text-red-200">
+                           <p className="font-light text-sm">lat: {item.lat || 0} </p>
+                           <p className="font-light text-sm">lon: {item.lon  || 0}</p>
                          </div>
                          {/* <FaLocationArrow color="#9e2632" size={20} /> */}
                        </div>
-                     </div>
-               ))}
+                     </Link>
+               )) : (
+                 <p>No results found</p>
+               )}
               </div>
             )}
           </div>

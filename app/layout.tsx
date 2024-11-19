@@ -4,17 +4,9 @@ import "./globals.css";
 import BackgroundProvider from "@/clientProvider/provider";
 import { Providers } from "@/clientProvider/queryclient";
 import HydrateQueryClient from "@/clientProvider/hydration";
+import Head from "next/head";
+import Script from "next/script";
 
-// const geistSans = localFont({
-//   src: "./fonts/GeistVF.woff",
-//   variable: "--font-geist-sans",
-//   weight: "100 900",
-// });
-// const geistMono = localFont({
-//   src: "./fonts/GeistMonoVF.woff",
-//   variable: "--font-geist-mono",
-//   weight: "100 900",
-// });
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -36,6 +28,8 @@ export default function RootLayout({
             <HydrateQueryClient>{children}</HydrateQueryClient>
           </BackgroundProvider>
         </Providers>
+
+       
       </body>
     </html>
   );
