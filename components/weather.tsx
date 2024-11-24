@@ -9,10 +9,12 @@ import { WeatherInfo } from "./weather-info";
 import { useGetWeatherInfo } from "@/lib/query";
 import { useQueryClient } from "@tanstack/react-query";
 
-export default function MyWeatherInfo({ lat, lon }: { lat: number; lon: number }) {
+
+export default function Weather({ lat, lon }: { lat: number; lon: number }) {
   const { setBackground } = useWeatherBackground();
-  const { data: weatherData, isLoading, refetch } = useGetWeatherInfo({ lat, lon});
+  const { data: weatherData, isLoading } = useGetWeatherInfo({ lat, lon});
   const queryClient = useQueryClient();
+ 
 
   useEffect(() => {
     try {
@@ -40,8 +42,7 @@ export default function MyWeatherInfo({ lat, lon }: { lat: number; lon: number }
     queryKey: ['weeklyForecast'],
  })
     
-    console.log(`Coordinates updated: lat=${lat}, lon=${lon}`);
-  }, [lat, lon, queryClient, refetch]);
+  }, [lat, lon, queryClient]);
 
   console.log("DATA FROM CLIENT", weatherData);
   console.log("loading", isLoading);
@@ -50,8 +51,7 @@ export default function MyWeatherInfo({ lat, lon }: { lat: number; lon: number }
     <div className={cn("w-full h-full min-h-screen first-letter:text-white")}>
       <SearchInput />
 
-      {/* WEATHER HIGHLIGHTS */}
-
+      {/* WEATHER ALL INFOS */}
       <div className="mt-[45px] mx-[20px] md:mx-[55px] lg:mx-[85px]">
         <WeatherInfo key={weatherData?.id} data={weatherData as WeatherData} />
       </div>

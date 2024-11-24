@@ -1,13 +1,17 @@
-import MyWeatherInfo from "@/components/weather-mylocation";
+import Weather from "@/components/weather";
 import { Metadata } from "next";
+
 
 export const metadata: Metadata = {
   title: "WeatherV",
   description: "Current weather forecast",
 };
+
+
+
 export default async function Page() {
   //fetch location coords 
-  const location = await fetch("http://ipwho.is/", {
+  const location = await fetch("https://ipwho.is/", {
     cache: "no-store",
   })
     .then((res) => res.json())
@@ -18,7 +22,7 @@ export default async function Page() {
 
   return (
     <div className="w-full h-full min-h-screen">
-      <MyWeatherInfo lat={latitude} lon={longitude}/>
+      <Weather lat={latitude} lon={longitude}/>
     </div>
   );
 }

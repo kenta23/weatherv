@@ -1,5 +1,5 @@
 import { searchCity } from '@/actions/data';
-import MyWeatherInfo from '@/components/weather-mylocation';
+import MyWeatherInfo from '@/components/weather';
 import { Cityname } from '@/types/weather';
 import React from 'react'
 

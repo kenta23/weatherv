@@ -11,7 +11,7 @@ export async function getMyWeatherData({
   lon: string;
 }): Promise<WeatherData | null> {
   const current_weather_api = process.env.CURRENT_WEATHER_BASE_URL as string;
-  const API_KEY = process.env.API_KEY as string;
+  const API_KEY = process.env.NEXT_PUBLIC_OWM_API_KEY as string;
 
   try {
     const response = await fetch(
@@ -43,7 +43,7 @@ export async function getAirQualityIndex({
   lon: string;
 }): Promise<AirQualityData | null> {
   const AIR_QUALITY_BASE_URL = process.env.AIR_QUALITY_BASE_URL as string;
-  const API_KEY = process.env.API_KEY as string;
+  const API_KEY = process.env.NEXT_PUBLIC_OWM_API_KEY as string;
 
   try {
     const response = await fetch(
@@ -77,7 +77,7 @@ export async function getOneWeekForecast({
   lat: number;
   lon: number;
 }): Promise<WeeklyWeatherApiResponse | null> {
-  const API_KEY = process.env.API_KEY as string;
+  const API_KEY = process.env.NEXT_PUBLIC_OWM_API_KEY as string;
   const API_URL = process.env.WEEKLY_FORECAST_API as string;
 
   try {
@@ -107,7 +107,7 @@ export async function getWeatherMap() {
 
 export async function searchCity(cityname: string): Promise<Cityname[] | null> {
   try {
-    const apiKey = process.env.API_KEY as string;
+    const apiKey = process.env.NEXT_PUBLIC_OWM_API_KEY as string;
     const geocoing_api = process.env.GEOCODING_API_URL as string;
 
     const response = await fetch(

@@ -8,7 +8,7 @@ export function useGetAirQuality() {
     refetchInterval: 150 * 1000,
     queryFn: async () => {
       try {
-        const mylocation = await fetch("http://ipwho.is/")
+        const mylocation = await fetch("https://ipwho.is/")
           .then((res) => res.json())
           .then((data) => data);
 
@@ -53,6 +53,7 @@ export function useGetWeeklyForecast({
   return useQuery({ 
      queryKey: ["weeklyForecast"],
      refetchInterval: 150 * 1000,
+     enabled: !!lat && !!lon,
      queryFn: async () => {
          const data: WeeklyWeatherApiResponse | null = await getOneWeekForecast({ 
           lat,
@@ -68,7 +69,6 @@ export function useSearchCity(cityname: string) {
      queryKey: ["searchCity"],
      enabled: !!cityname,
      staleTime: 0,
-     refetchOnMount: true,
      gcTime: 0,
      
      

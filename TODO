@@ -1,6 +1,10 @@
 
 Todo:
   ✔ change the date and time based on country's timezone @done(24-11-19 15:27)
-  ☐ Save city function 
-  ☐ maps
+  ✔ maps @done(24-11-24 14:41)
+  ✔ code refactoring @done(24-11-24 15:19)
+  ✔ implement loading animation running only once @done(24-11-24 15:58)
+  ☐ change weather icons, (figma weather ui download locally)
+  ☐ responsiveness design
+  ☐ Add animations on loading screen transition and others
 

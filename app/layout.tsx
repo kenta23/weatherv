@@ -4,8 +4,6 @@ import "./globals.css";
 import BackgroundProvider from "@/clientProvider/provider";
 import { Providers } from "@/clientProvider/queryclient";
 import HydrateQueryClient from "@/clientProvider/hydration";
-import Head from "next/head";
-import Script from "next/script";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -24,9 +22,11 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning={true}>
       <body className={`${inter.className} antialiased`}>
         <Providers>
-          <BackgroundProvider>
-            <HydrateQueryClient>{children}</HydrateQueryClient>
-          </BackgroundProvider>
+        <HydrateQueryClient>
+              <BackgroundProvider>
+                  {children}
+              </BackgroundProvider>
+          </HydrateQueryClient>
         </Providers>
 
        

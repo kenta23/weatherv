@@ -30,12 +30,8 @@ export default function LoadingUi() {
             <div className="flex items-start w-auto h-auto gap-3">
               <IoLocationSharp size={27} color="#D13535" />
               <div className="flex flex-col gap-2">
-                <h2 className="text-[25px] font-medium">
                   <Skeleton className="h-4 w-[200px]" />
-                </h2>
-                <p className="font-light text-[18px]">
                   <Skeleton className="h-4 w-[170px]" />
-                </p>
               </div>
             </div>
     
@@ -44,10 +40,9 @@ export default function LoadingUi() {
                 <div className="flex flex-1 flex-col items-center justify-center">
                   <Skeleton className="size-28 rounded-full" />
                   <div className="flex mt-2 flex-col items-center gap-1">
-                    <Skeleton className="w-[100px] h-4" />
-                    <p className="text-[20px] font-normal">
-                      <Skeleton className="h-2 w-9" />
-                    </p>
+                    <Skeleton className="w-[100px] h-4" />      
+                    <Skeleton className="h-2 w-9" />
+          
                   </div>
                 </div>
               </div>
@@ -55,8 +50,8 @@ export default function LoadingUi() {
               <div className="flex items-center h-[120px] justify-center md:w-full lg:w-[90%]">
                 <div className="flex w-full gap-3 justify-around">
                   {/**PRESSURE, HUMIDITY, VISIBLITY, WIND */}
-                  {[1, 2, 3, 4].map((item) => (
-                    <div className="flex flex-col gap-2 items-center" key={item}>
+                  {Array.from({ length: 4 }).map((item) => (
+                    <div className="flex flex-col gap-2 items-center" key={item as number}>
                       <div className="flex gap-1 items-center">
                         <Skeleton className="size-4 rounded-full" />
                         <Skeleton className="w-[80px] h-4" />
@@ -75,9 +70,7 @@ export default function LoadingUi() {
                     className="flex text-start gap-2 mb-3 my-2 justify-start items-center"
                   >
                     <Skeleton className="size-4 rounded-full" />
-                    <p className="font-normal">
-                      <Skeleton className="w-[80px] h-2" />
-                    </p>
+                    <Skeleton className="w-[80px] h-2" />
                   </div>
                 ))}
               </div>
