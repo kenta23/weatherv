@@ -237,6 +237,7 @@ export default function BackgroundProvider({
       <div className="relative py-10 z-10 min-h-screen h-full w-full">
         {children}
       </div>
+      
     </div>
   ) : <LoadingScreen />
 }

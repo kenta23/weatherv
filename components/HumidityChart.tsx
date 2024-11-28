@@ -41,8 +41,8 @@ export function RadialChartComponent({
             {/* Define the gradient */}
             <defs>
               <linearGradient id="gradientColor" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="#7921B0" /> {/* Start color */}
-                <stop offset="100%" stopColor="#B72531" /> {/* End color */}
+                <stop offset="0%" stopColor="#4777c9" /> {/* Start color */}
+                <stop offset="100%" stopColor="#104bb0" /> {/* End color */}
               </linearGradient>
             </defs>
 
@@ -50,7 +50,7 @@ export function RadialChartComponent({
               gridType="circle"
               radialLines={false}
               stroke="none"
-              className="first:fill-[#52393F] last:fill-[#c0a4b1]"
+              className="first:fill-[#d5d9e2] last:fill-[#6f9cc5]"
               polarRadius={[86, 74]}
             />
 

@@ -10,12 +10,14 @@ import {
 } from "recharts";
 
 export function AirQualityChart({ aqi }: { aqi: number }) {
-  const chartData = [{ browser: "safari", aqi, fill: "#3EAE51" }];
+  const chartData = [{ aqi, fill: "#3EAE51" }];
   const chartConfig = {
     aqi: {
       label: "Air Quality",
     },
   } satisfies ChartConfig;
+
+  const aqiLabels = ["Good", "Fair", "Moderate", "Poor and Unhealthy", "Very Unhealthy"];
 
   return (
     <Card className="bg-transparent outline-none border-none">
@@ -39,7 +41,7 @@ export function AirQualityChart({ aqi }: { aqi: number }) {
             gridType="circle"
             radialLines={false}
             stroke="none"
-            className="first:fill-[#39523D] last:fill-[#7EC189]"
+            className="first:fill-[#c0e6c7] last:fill-[#77ad80]"
             polarRadius={[86, 74]}
           />
           <RadialBar dataKey="aqi" background cornerRadius={10} />
@@ -80,7 +82,7 @@ export function AirQualityChart({ aqi }: { aqi: number }) {
 
       <CardFooter className="flex-col gap-2 mt-2 text-sm">
         <div className="flex text-white items-center gap-2 font-medium leading-none">
-          Good Quality
+           <span>{aqiLabels[aqi - 1]}</span>
         </div>
       </CardFooter>
     </Card>

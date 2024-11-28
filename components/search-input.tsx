@@ -41,7 +41,7 @@ if (error) console.log(error);
   //implement loading state when searching city
   return (
     <div className="mx-auto flex relative items-center justify-center">
-      <div className="w-[590px] bg-slate-600 flex items-center h-[50px] relative z-50 rounded-full">
+      <div className="w-[350px] md:w-[400px] lg:w-[590px] bg-slate-600 flex items-center h-[50px] relative z-50 rounded-full">
         <IoMdSearch
           size={20}
           className="absolute text-[#9CB4C5] top-[26%] left-6"

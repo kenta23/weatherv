@@ -8,7 +8,6 @@ export const metadata: Metadata = {
 };
 
 
-
 export default async function Page() {
   //fetch location coords 
   const location = await fetch("https://ipwho.is/", {

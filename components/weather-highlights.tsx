@@ -131,12 +131,12 @@ export default function WeatherHighlights({
 }) {
 
   return (
-    <div className="grid items-start gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full justify-center">
+    <div className="grid items-center gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3  w-full justify-center">
       {data.map((item, index) => (
         <div
           key={index}
           className={cn(
-            `h-[240px] backdrop-invert bg-white/15 rounded-xl drop-shadow-xl px-3 py-2 backdrop-opacity-10 col-span-full sm:col-span-1 w-[340px]`,
+            `h-[240px] backdrop-invert bg-white/15 rounded-xl drop-shadow-xl px-3 py-2 backdrop-opacity-10 col-span-full sm:col-span-1 w-full`,
             {
               "col-start-1 col-span-full row-start-4 md:col-start-3 md:row-start-3": index === 6,
             }

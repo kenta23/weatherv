@@ -19,17 +19,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning={true}>
+    <html lang="en">
       <body className={`${inter.className} antialiased`}>
         <Providers>
-        <HydrateQueryClient>
+         <HydrateQueryClient>
               <BackgroundProvider>
                   {children}
               </BackgroundProvider>
           </HydrateQueryClient>
         </Providers>
-
-       
       </body>
     </html>
   );

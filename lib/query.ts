@@ -53,7 +53,6 @@ export function useGetWeeklyForecast({
   return useQuery({ 
      queryKey: ["weeklyForecast"],
      refetchInterval: 150 * 1000,
-     enabled: !!lat && !!lon,
      queryFn: async () => {
          const data: WeeklyWeatherApiResponse | null = await getOneWeekForecast({ 
           lat,

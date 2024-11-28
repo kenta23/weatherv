@@ -80,33 +80,6 @@ export function WeatherInfo({
   ]);
   
 
- 
-  // const storeWeatherInfo = [
-  //   {
-  //     id: 1,
-  //     title: "Pressure",
-  //     icon: <PiSpeedometerFill size={18} />,
-  //     value: `${main?.pressure} hPa`,
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "Humidity",
-  //     icon: <MdWaterDrop size={18} />,
-  //     value: `${main?.humidity}%`,
-  //   },
-  //   {
-  //     id: 3,
-  //     title: "Visibility",
-  //     icon: <FaEye size={18} />,
-  //     value: `${visibility} m`,
-  //   },
-  //   {
-  //     id: 4,
-  //     title: "Wind",
-  //     icon: <LuWind size={18} />,
-  //     value: `${wind?.speed} m/s`,
-  //   },
-  // ].filter(Boolean);
 
   const [weatherTemps] = useState<{ id: number; title: string; icon: React.ReactNode; value: string }[]>([{
     id: 1,
@@ -128,26 +101,6 @@ export function WeatherInfo({
   },]);
 
 
-  // const weatherTemps = [
-  //   {
-  //     id: 1,
-  //     title: "Feels like",
-  //     icon: <FaTemperatureHalf size={18} />,
-  //     value: `${data?.main.feels_like}°C`,
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "Lowest Temp",
-  //     icon: <FaTemperatureArrowDown size={18} />,
-  //     value: `${data?.main.temp_min}°C`,
-  //   },
-  //   {
-  //     id: 3,
-  //     title: "Highest Temp",
-  //     icon: <FaTemperatureArrowUp size={18} />,
-  //     value: `${data?.main.temp_max}°C`,
-  //   },
-  // ];
 
   return (
     <div className="text-white w-full flex flex-col">
@@ -229,10 +182,10 @@ export function WeatherInfo({
           <div className="space-y-6 w-full">
             <h2 className="text-[30px] font-medium mt-7">Weather Highlights</h2>
 
-            <div className="flex justify-center flex-wrap w-full items-center">
-              <Suspense fallback={<div>{"Loading..."}</div>}>
-                <WeatherHighlights key={data?.id} data={weatherHighlights} />
-              </Suspense>
+           <div className="flex  justify-center flex-wrap w-full items-center">
+               <Suspense fallback={<div>{"Loading..."}</div>}>
+                   <WeatherHighlights key={data?.id} data={weatherHighlights} />
+               </Suspense>
             </div>
           </div>
 

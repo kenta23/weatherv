@@ -3,7 +3,7 @@ import MyWeatherInfo from '@/components/weather';
 import { Cityname } from '@/types/weather';
 import React from 'react'
 
-export default async function Page({ params } : { params: Promise<{ cityname: string} > } ) {
+export default async function Page({ params } : { params: Promise<{ cityname: string} >} ) {
  const cityname = (await params).cityname;
 
  //fetch geocoding api 
