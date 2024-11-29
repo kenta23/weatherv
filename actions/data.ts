@@ -69,6 +69,21 @@ export async function updateWeather() {
   return revalidateTag("weatherData");
 }
 
+export async function defaultWeatherData ()  { 
+  const location = await fetch("https://ipwho.is/", {
+    cache: "no-store",
+  })
+    .then((res) => res.json())
+    .then((data) => data);
+
+  const { latitude, longitude } = await location;
+
+  const data = await getMyWeatherData({ lat: latitude, lon: longitude}) 
+  
+  return data;
+}
+
+
 
 export async function getOneWeekForecast({
   lat,

@@ -9,6 +9,7 @@ export default function LoadingScreen() {
       <div className='flex items-center justify-center gap-4 flex-col'>
         <Image
           loading="eager"
+          priority
           quality={100}
           src={"/logo.png"}
           width={150}

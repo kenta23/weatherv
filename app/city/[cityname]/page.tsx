@@ -1,7 +1,8 @@
 import { searchCity } from '@/actions/data';
-import MyWeatherInfo from '@/components/weather';
+import Weather from '@/components/weather';
 import { Cityname } from '@/types/weather';
 import React from 'react'
+
 
 export default async function Page({ params } : { params: Promise<{ cityname: string} >} ) {
  const cityname = (await params).cityname;
@@ -11,8 +12,8 @@ export default async function Page({ params } : { params: Promise<{ cityname: st
  const [{ lat, lon } = {}] = searchCityCoords || [];
   
   return (
-    <div className="w-full h-full min-h-screen">
-      {!lat || !lon ? <div>City not found</div> : <MyWeatherInfo lat={lat} lon={lon} />}
-    </div>
+      <div className="w-full h-full min-h-screen">
+        <Weather lat={Number(lat)} lon={Number(lon)} />
+     </div>
   );
 }

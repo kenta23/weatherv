@@ -191,7 +191,7 @@ export function WeatherInfo({
 
           {/* ONE WEEK WEATHER FORECAST */}
           <div className="space-y-6 mt-12 w-full">
-            <h2 className="text-[30px] font-medium mt-7">This Week Forecast</h2>
+            <h2 className="text-[30px] font-medium mt-7">Weekly Forecast</h2>
 
             <WeeklyForecast coord={data?.coord as Coord} />
           </div>

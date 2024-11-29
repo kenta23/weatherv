@@ -11,16 +11,12 @@ export function RadialChartComponent({
     value: number;
   }) {
     const chartData = [
-      { browser: "safari", data: value, fill: "url(#gradientColor)" },
+      { data: value, fill: "url(#gradientColor)" },
     ];
   
     const chartConfig = {
       data: {
         label: label,
-      },
-      safari: {
-        label: "Safari",
-        color: "hsl(var(--chart-2))",
       },
     } satisfies ChartConfig;
   
@@ -89,8 +85,10 @@ export function RadialChartComponent({
                           y={(viewBox.cy || 0) + 24}
                           color="#fff"
                         >
-                          {Number(chartData[0].data.toFixed(2)) <= 40
-                            ? "Low to Moderate"
+                          {chartData[0].data < 45
+                            ? "Low Humidity"
+                            : chartData[0].data >= 45 && chartData[0].data <= 55
+                            ? "Normal Humidity"
                             : "High Humidity"}
                         </tspan>
                       </text>

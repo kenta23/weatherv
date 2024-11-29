@@ -51,7 +51,7 @@ export default function LoadingUi() {
                 <div className="flex w-full gap-3 justify-around">
                   {/**PRESSURE, HUMIDITY, VISIBLITY, WIND */}
                   {Array.from({ length: 4 }).map((item) => (
-                    <div className="flex flex-col gap-2 items-center" key={item as number}>
+                    <div key={item as number} className="flex flex-col gap-2 items-center">
                       <div className="flex gap-1 items-center">
                         <Skeleton className="size-4 rounded-full" />
                         <Skeleton className="w-[80px] h-4" />

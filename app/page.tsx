@@ -5,8 +5,8 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "WeatherV",
   description: "Current weather forecast",
-};
 
+};
 
 export default async function Page() {
   //fetch location coords 
@@ -18,10 +18,9 @@ export default async function Page() {
 
   const { latitude, longitude } = await location;
    
-
   return (
-    <div className="w-full h-full min-h-screen">
-      <Weather lat={latitude} lon={longitude}/>
-    </div>
+      <div className="w-full h-full min-h-screen">
+        <Weather lat={latitude} lon={longitude} />
+      </div>
   );
 }

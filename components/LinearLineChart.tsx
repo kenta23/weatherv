@@ -22,7 +22,7 @@ export function LinearLineChart({ label, value }: WeatherHighlightData) {
 
   const chartConfig = {
     temp: {
-      label: "Temperature: ",
+      label,
       color: "hsl(var(--chart-1))",
     },
   } satisfies ChartConfig;
@@ -39,16 +39,6 @@ export function LinearLineChart({ label, value }: WeatherHighlightData) {
           horizontal={false}
           horizontalPoints={[0, 40]}
         />
-
-        {/* <XAxis
-          dataKey="title"
-          tickLine={false}
-          axisLine={false}
-          tickMargin={0}
-          className="text-white"
-          color="#ffff"
-          tickFormatter={(value: string) => value}
-        /> */}
 
         <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
 

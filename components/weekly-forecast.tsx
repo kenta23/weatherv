@@ -2,24 +2,29 @@
 
 import { useGetWeeklyForecast } from '@/lib/query'
 import { Coord, WeeklyWeatherApiResponse } from '@/types/weather'
-import React, { useMemo } from 'react'
+import React, { useEffect, useState } from 'react'
 import { fromUnixTime, format } from 'date-fns';
 import Image from 'next/image';
+import { useQueryClient } from '@tanstack/react-query';
 
 
 export default function WeeklyForecast ({ coord } : { coord: Coord }) {
   
-    const { lat, lon } = coord
-    const { data } = useGetWeeklyForecast({ lat, lon })
- 
-  // Filter data to include only one forecast per day at 12:00 PM if available
-
-  const dailyForecast = useMemo(() => { 
-     return data?.list.reduce<WeeklyWeatherApiResponse['list']>((acc, current) => {
+  const { lat, lon } = coord
+  const { data } = useGetWeeklyForecast({ lat, lon })
+  
+  const queryClient = useQueryClient();
+  const [dailyForecast, setDailyForecast] = useState<WeeklyWeatherApiResponse['list']>([
+    
+  ]);
+  
+    // Filter data to include only one forecast per day at 12:00 PM if available
+  function reducedWeeklyForecast (items: WeeklyWeatherApiResponse['list']) {
+    return items.reduce<WeeklyWeatherApiResponse['list']>((acc, current) => {
       const currentDate = format(fromUnixTime(current.dt), 'yyyy-MM-dd');
       const currentTime = format(fromUnixTime(current.dt), 'HH:mm');
+   
   
-
       const existingEntry = acc.find(item => format(fromUnixTime(item.dt), 'yyyy-MM-dd') === currentDate);
   
       // Add the entry if it's the first of the day or specifically at 12:00 PM
@@ -27,16 +32,25 @@ export default function WeeklyForecast ({ coord } : { coord: Coord }) {
         acc.push(current);
       }
       
-      // If 12:00 PM is not available, add the first entry of the day
+      // If 12:00 PM is not available or already passed, add the first entry of the day
       else if (!existingEntry && currentTime !== '12:00') {
         acc.push(current);
       }
   
       return acc;
     }, []);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data?.city.coord.lat, data?.city.coord.lon]);
 
+  }
+    
+
+    useEffect(() => {
+       if(coord) { 
+        queryClient.invalidateQueries({ queryKey: ['weeklyForecast'] });
+        setDailyForecast(reducedWeeklyForecast(data?.list || []));
+       }
+    }, [coord, data?.list, queryClient]);
+
+    console.log('WHOLE DAILY FORECAST', data);
 
  return (
      <div className='grid grid-cols-1 sm:grid-cols-2 md:flex md:justify-evenly gap-6 w-full overflow-x-auto'>
