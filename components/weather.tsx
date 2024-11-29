@@ -16,7 +16,6 @@ export default function Weather({ lat, lon }: { lat: number; lon: number }) {
   const { setBackground } = useWeatherBackground();
 
 
-
   const { data: weatherData, isLoading } = useGetWeatherInfo({ lat, lon });
   const queryClient = useQueryClient();
 

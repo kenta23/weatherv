@@ -14,43 +14,32 @@ export default function WeeklyForecast ({ coord } : { coord: Coord }) {
   const { data } = useGetWeeklyForecast({ lat, lon })
   
   const queryClient = useQueryClient();
-  const [dailyForecast, setDailyForecast] = useState<WeeklyWeatherApiResponse['list']>([
-    
-  ]);
+  const [dailyForecast, setDailyForecast] = useState<WeeklyWeatherApiResponse['list']>([]);
   
-    // Filter data to include only one forecast per day at 12:00 PM if available
-  function reducedWeeklyForecast (items: WeeklyWeatherApiResponse['list']) {
-    return items.reduce<WeeklyWeatherApiResponse['list']>((acc, current) => {
-      const currentDate = format(fromUnixTime(current.dt), 'yyyy-MM-dd');
-      const currentTime = format(fromUnixTime(current.dt), 'HH:mm');
-   
+  const filterDailyForecast = (items: WeeklyWeatherApiResponse['list']) => {
+    const dailyForecastMap = new Map<string, typeof items[number]>();
   
-      const existingEntry = acc.find(item => format(fromUnixTime(item.dt), 'yyyy-MM-dd') === currentDate);
+    items.forEach(item => {
+      const currentDate = format(fromUnixTime(item.dt), 'yyyy-MM-dd');
   
-      // Add the entry if it's the first of the day or specifically at 12:00 PM
-      if (!existingEntry && currentTime === '12:00') {
-        acc.push(current);
+      // Add the first occurrence of the date to the map
+      if (!dailyForecastMap.has(currentDate)) {
+        dailyForecastMap.set(currentDate, item);
       }
-      
-      // If 12:00 PM is not available or already passed, add the first entry of the day
-      else if (!existingEntry && currentTime !== '12:00') {
-        acc.push(current);
-      }
+    });
   
-      return acc;
-    }, []);
+    // Convert the map values to an array
+    return Array.from(dailyForecastMap.values());
+  };
 
-  }
-    
 
     useEffect(() => {
-       if(coord) { 
+       if (coord) { 
         queryClient.invalidateQueries({ queryKey: ['weeklyForecast'] });
-        setDailyForecast(reducedWeeklyForecast(data?.list || []));
+        setDailyForecast(filterDailyForecast(data?.list || []));
        }
     }, [coord, data?.list, queryClient]);
 
-    console.log('WHOLE DAILY FORECAST', data);
 
  return (
      <div className='grid grid-cols-1 sm:grid-cols-2 md:flex md:justify-evenly gap-6 w-full overflow-x-auto'>
