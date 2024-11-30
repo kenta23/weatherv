@@ -4,6 +4,9 @@ import Image from 'next/image'
 import React from 'react'
 
 export default function LoadingScreen() {
+  
+
+
   return (
     <div className="h-screen w-full flex justify-center items-center bg-[#5AA9E6] ">
       <div className='flex items-center justify-center gap-4 flex-col'>

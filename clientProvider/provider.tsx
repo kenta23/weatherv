@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { useWeatherBackground } from "@/app/store/store";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import LoadingScreen from "@/components/loadingscreen";
+import LoadingScreen from "@/components/splashscreen";
 import { weatherconditions } from "@/lib/data";
 
 
@@ -25,6 +25,7 @@ export default function BackgroundProvider({
   const { background } = useWeatherBackground();
   const [mounted, setMounted] = useState<boolean>(false);
   const [weatherCondition] = useState<weatherConditionType>(weatherconditions);
+  const [loading, setLoading] = useState<boolean>(true);
 
   // console.log("background", background);
 
@@ -35,7 +36,7 @@ export default function BackgroundProvider({
 
   console.log("selectedBg", selectedBg);
 
-  const [loading, setLoading] = useState<boolean>(true);
+ 
 
     /**will run only once the component mounts */
     /**will rerender if the its visited to city page */

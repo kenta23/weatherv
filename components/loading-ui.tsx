@@ -5,10 +5,19 @@ import { Skeleton } from './ui/skeleton';
 import { cn } from '@/lib/utils';
 import { IoLocationSharp } from 'react-icons/io5';
 import { IoMdSearch } from 'react-icons/io';
+import { animated, useSpring } from '@react-spring/web';
+
 
 export default function LoadingUi() {
+  const springs = useSpring({ 
+    from: { opacity: 0 },
+    to: { opacity: 1 },
+    config: { duration: 1000, bounce: 0.5 },
+  })
+
+
     return (
-        <div className="text-white px-8 w-full overflow-x-hidden min-h-screen h-full">
+        <animated.div style={springs} className="text-white px-8 w-full overflow-x-hidden min-h-screen h-full">
           {/**SEARCH INPUT */}
           <div className="mx-auto flex relative items-center justify-center">
             <div className="w-[590px] bg-slate-600 flex items-center h-[50px] relative z-50 rounded-full">
@@ -132,6 +141,6 @@ export default function LoadingUi() {
     
     
           </div>
-        </div>
+        </animated.div>
       );
 }
