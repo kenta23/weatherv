@@ -2,21 +2,19 @@ import {  getAirQualityIndex, getMyWeatherData, getOneWeekForecast, searchCity }
 import { Cityname, WeeklyWeatherApiResponse } from "@/types/weather";
 import { useQuery } from "@tanstack/react-query";
 
-export function useGetAirQuality() {
+export function useGetAirQuality(coords: { lat: number; lon: number } ) {
+
   return useQuery({
     queryKey: ["airQuality"],
     refetchInterval: 150 * 1000,
     queryFn: async () => {
       try {
-        const mylocation = await fetch("https://ipwho.is/")
-          .then((res) => res.json())
-          .then((data) => data);
-
-        const { latitude, longitude } = await mylocation;
+        
+        const { lat, lon } = coords;
 
         const data = await getAirQualityIndex({
-          lat: latitude.toString(),
-          lon: longitude.toString(),
+          lat: lat.toString(),
+          lon: lon.toString(),
         });
 
         return data;
@@ -26,7 +24,6 @@ export function useGetAirQuality() {
     },
   });
 }
-
 
 export function useGetWeatherInfo({ lat, lon }: { lat: number; lon: number }) {
   return useQuery({

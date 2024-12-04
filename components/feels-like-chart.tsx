@@ -1,5 +1,5 @@
 "use client";
-import { CartesianGrid, Line, LineChart } from "recharts";
+import { CartesianGrid, Line, LineChart, ResponsiveContainer } from "recharts";
 import {
   ChartConfig,
   ChartContainer,
@@ -7,6 +7,9 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { WeatherHighlightData } from "./weather-info";
+
+
+
 
 export function LinearLineChart({ label, value }: WeatherHighlightData) {
   // Ensure `value` is an array and map the values accordingly.
@@ -28,7 +31,8 @@ export function LinearLineChart({ label, value }: WeatherHighlightData) {
   } satisfies ChartConfig;
 
   return (
-    <ChartContainer
+   <ResponsiveContainer  width={"100%"} height={"30px"}>
+     <ChartContainer
       className="py-2 w-full h-[120px] -mb-10"
       config={chartConfig}
     >
@@ -51,5 +55,6 @@ export function LinearLineChart({ label, value }: WeatherHighlightData) {
         />
       </LineChart>
     </ChartContainer>
+     </ResponsiveContainer>
   );
 }

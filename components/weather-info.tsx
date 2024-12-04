@@ -180,25 +180,25 @@ export function WeatherInfo({
 
           {/**WEATHER HIGHLIGHTS */}
           <div className="space-y-6 w-full">
-            <h2 className="text-[30px] font-medium mt-7">Weather Highlights</h2>
+            <h2 className="text-[20px] sm:text-[22px] lg:text-[30px] font-medium mt-7">Weather Highlights</h2>
 
            <div className="flex  justify-center flex-wrap w-full items-center">
                <Suspense fallback={<div>{"Loading..."}</div>}>
-                   <WeatherHighlights key={data?.id} data={weatherHighlights} />
+                   <WeatherHighlights coords={data?.coord as Coord} key={data?.id} data={weatherHighlights}/>
                </Suspense>
             </div>
           </div>
 
           {/* ONE WEEK WEATHER FORECAST */}
           <div className="space-y-6 mt-12 w-full">
-            <h2 className="text-[30px] font-medium mt-7">Weekly Forecast</h2>
+            <h2 className="text-[20px] sm:text-[22px] lg:text-[30px] font-medium mt-7">Weekly Forecast</h2>
 
             <WeeklyForecast coord={data?.coord as Coord} />
           </div>
 
           {/**WEATHER MAP */}
           <div className="space-y-6 mt-12 w-full">
-            <h2 className="text-[30px] font-medium mt-7">Weather Map</h2>
+            <h2 className="text-[20px] sm:text-[22px] lg:text-[30px] font-medium mt-7">Weather Map</h2>
             <ClientWeatherMap
               lat={data?.coord.lat as number}
               lon={data?.coord.lon as number}

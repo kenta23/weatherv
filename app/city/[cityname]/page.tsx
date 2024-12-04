@@ -12,7 +12,7 @@ export default async function Page({ params } : { params: Promise<{ cityname: st
  const [{ lat, lon } = {}] = searchCityCoords || [];
   
   return (
-      <div className="w-full h-full min-h-screen">
+      <div className="w-full overflow-hidden h-full min-h-screen">
         <Weather lat={Number(lat)} lon={Number(lon)} />
      </div>
   );

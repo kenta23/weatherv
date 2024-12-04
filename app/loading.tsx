@@ -1,3 +1,6 @@
+'use client';
+
+
 import LoadingUi from '@/components/loading-ui'
 import React from 'react'
 

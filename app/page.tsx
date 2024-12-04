@@ -33,7 +33,7 @@ export default function Page() {
   }, []);
    
   return (
-      <animated.div style={springs} className="w-full h-full min-h-screen">
+      <animated.div style={springs} className="w-full overflow-hidden h-full min-h-screen">
         <Weather lat={coords[0]} lon={coords[1]} />
       </animated.div>
   );

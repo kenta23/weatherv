@@ -19,7 +19,7 @@ export function SeaLevelChart({
   value: number;
 }) {
   const chartData = [
-    { title: "0", level: 0 },
+    { title: "0", level: "0" },
     { title: "normal", level: 1013.25 },
     { title: "current", level: value },
   ];
@@ -34,7 +34,7 @@ export function SeaLevelChart({
   return (
     <Suspense fallback={<Skeleton className="w-full h-[120px] rounded-lg bg-slate-400" />}>
       <ChartContainer
-        className="py-2 w-full text-white h-[120px]"
+        className="py-2 w-full text-white h-[100px] md:h-[120px] lg:h-[140px] xl:h-[150px]"
         config={chartConfig}
       >
         <AreaChart
@@ -45,24 +45,19 @@ export function SeaLevelChart({
             right: 12,
           }}
         >
-          <CartesianGrid vertical={false} horizontal={false} />
+         
 
           <XAxis
             dataKey="title"
             tickLine={false}
             axisLine={false}
             tick={{
-              fill: "white",
+              fill: "#ffff",
               fillOpacity: 1,
-              stroke: "#fff",
-              strokeOpacity: 0.8,
-              color: "#fff",
               opacity: 1,
-              style: {
-                color: "white",
-              },
             }}
             tickMargin={6}
+            fill="#ffff"
             tickFormatter={(value) => value + " hPa"}
           />
           <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
@@ -78,7 +73,7 @@ export function SeaLevelChart({
             dataKey="level"
             type="natural"
             fill="url(#fillSeaLevel)"
-            fillOpacity={0.7}
+            fillOpacity={0.9}
             stroke="#fff"
             stackId="a"
           />
@@ -87,3 +82,7 @@ export function SeaLevelChart({
     </Suspense>
   );
 }
+
+
+
+

@@ -42,14 +42,14 @@ export default function WeeklyForecast ({ coord } : { coord: Coord }) {
 
 
  return (
-     <div className='grid grid-cols-1 sm:grid-cols-2 md:flex md:justify-evenly gap-6 w-full overflow-x-auto'>
-       {dailyForecast?.slice(1).map((item, index) => (
+   <div className='flex w-[550px] md:w-full overflow-x-auto gap-3 overflow-y-hidden scrollbar-hide'>
+      {dailyForecast?.slice(1).map((item, index) => (
          <div
-           className="bg-[#E8EDF0]/20 rounded-[20px] backdrop-opacity-10 w-full sm:max-w-[280px] h-[265px] px-1 py-2  rounded[20px]"
+           className="bg-[#E8EDF0]/10 rounded-[20px] backdrop-opacity-10 flex-1 min-w-[140px] h-full min-h-[220px] max-h-[250px] px-1 py-2 rounded[20px]"
            key={index}
          >
-           <div className="flex opacity-100 flex-col items-center gap-3">
-             <h4 className='text-center w-auto text-[22px]'>{format(fromUnixTime(item.dt), 'EEEE')}</h4>
+           <div className="flex w-full opacity-100 flex-col items-center gap-3">
+             <h4 className='text-center text-[18px] md:text-[22px]'>{format(fromUnixTime(item.dt), 'EEEE')}</h4>
              
 
              <div className='space-y-3 flex flex-col items-center'>
@@ -64,21 +64,21 @@ export default function WeeklyForecast ({ coord } : { coord: Coord }) {
                         priority
                       />
 
-                      <p className='text-[25px] -mt-2 font-medium'>{item.main.temp} °C</p>
+                      <p className='text-[18px] sm:text-md md:text-[25px] -mt-2 font-medium'>{item.main.temp} °C</p>
                  </div>
 
 
-                 <div className='items-center gap-1 flex flex-col'>
+                 <div className='text-sm lg:text-md items-center gap-1 flex flex-col'>
                      {/**LOW AND HIGH TEMP */}
-                     <p className='text-sm font-light text-gray-100'>Low: {item.main.temp_min} °C</p>
-                     <p className='text-sm font-light text-gray-100'>High: {item.main.temp_max} °C</p>
+                     <p className=' font-light text-gray-100'>Low: {item.main.temp_min} °C</p>
+                     <p className='font-light text-gray-100'>High: {item.main.temp_max} °C</p>
                  </div>
              </div>
            </div>
 
            <br />
          </div>
-       ))}
+        ))}
      </div>
   );
 }

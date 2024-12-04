@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ChartConfig, ChartContainer } from "./ui/chart";
 import { Card, CardFooter } from "./ui/card";
 import {
@@ -7,6 +7,7 @@ import {
   PolarRadiusAxis,
   RadialBar,
   RadialBarChart,
+  ResponsiveContainer,
 } from "recharts";
 
 export function AirQualityChart({ aqi }: { aqi: number }) {
@@ -19,15 +20,29 @@ export function AirQualityChart({ aqi }: { aqi: number }) {
 
   const aqiLabels = ["Good", "Fair", "Moderate", "Poor and Unhealthy", "Very Unhealthy"];
 
+  const [aqiScreenWidth, setaqiScreenWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setaqiScreenWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+
   return (
-    <Card className="bg-transparent outline-none border-none">
-      <ChartContainer config={chartConfig} className="mx-auto h-[180px]">
-        <RadialBarChart
+    <Card className="outline-none shadow-none border-none bg-transparent aspect-auto max-w-auto">
+     <ResponsiveContainer width={250} height={"100%"}>
+      <ChartContainer  
+            config={chartConfig}
+            color="#fff"
+            className="mx-auto min-h-[175px] text-white">
+      <RadialBarChart
           data={chartData}
           startAngle={90}
+          className='w-svw h-svh'
           endAngle={aqi * 72 + 90}
-          innerRadius={80}
-          outerRadius={125}
+          innerRadius={aqiScreenWidth < 725 ? 60 : 80}
+          outerRadius={aqiScreenWidth < 725 ? 100 : 120}
         >
           {/* Define the gradient */}
           <defs>
@@ -42,7 +57,7 @@ export function AirQualityChart({ aqi }: { aqi: number }) {
             radialLines={false}
             stroke="none"
             className="first:fill-[#c0e6c7] last:fill-[#77ad80]"
-            polarRadius={[86, 74]}
+            polarRadius={aqiScreenWidth < 725 ? [67, 55] : [85, 75]}
           />
           <RadialBar dataKey="aqi" background cornerRadius={10} />
 
@@ -79,6 +94,8 @@ export function AirQualityChart({ aqi }: { aqi: number }) {
           </PolarRadiusAxis>
         </RadialBarChart>
       </ChartContainer>
+      
+      </ResponsiveContainer>
 
       <CardFooter className="flex-col gap-2 mt-2 text-sm">
         <div className="flex text-white items-center gap-2 font-medium leading-none">
