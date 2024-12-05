@@ -155,7 +155,7 @@ export default function WeatherHighlights({
             }
           )}
         >
-          <div className="flex flex-col  h-full gap-1 ">
+          <div className="flex flex-col h-full gap-1 ">
             <span className="text-md md:text-lg xl:text-xl font-normal">{item.label}</span>
 
             <div className="flex flex-1 items-center justify-center my-auto">
@@ -167,7 +167,7 @@ export default function WeatherHighlights({
 
      <div className="h-[480px] md:h-[350px] lg:h-[300px] backdrop-invert bg-white/15 rounded-xl drop-shadow-xl px-3 py-2 backdrop-opacity-10 col-start-1 col-span-full md:col-span-2">
 
-        <div className="flex flex-col h-full gap-1">
+        <div className="flex flex-col mt-0 h-full gap-1">
             <span className="text-md md:text-lg xl:text-xl font-normal">Air Quality</span>
 
             <div className="flex items-center justify-center my-auto">

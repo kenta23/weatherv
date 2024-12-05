@@ -50,7 +50,7 @@ export function RadialChartComponent({
               className='w-svw h-svh'
               startAngle={90}
               endAngle={90 + value * 3.6}
-              innerRadius={screenWidth < 725 ? 60 : 80}
+              innerRadius={screenWidth < 725 ? 55 : 80}
               outerRadius={screenWidth < 725 ? 100 : 120}
             >
               {/* Define the gradient */}
@@ -66,7 +66,7 @@ export function RadialChartComponent({
                 radialLines={false}
                 stroke="none"
                 className="first:fill-[#d5d9e2] last:fill-[#6f9cc5]"
-                polarRadius={screenWidth < 725 ? [67, 55] : [85, 75]}
+                polarRadius={screenWidth < 725 ? [62, 50] : [87, 75]}
               />
 
               <RadialBar dataKey="data" background cornerRadius={10} />

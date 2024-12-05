@@ -84,19 +84,19 @@ export function WeatherInfo({
   const [weatherTemps] = useState<{ id: number; title: string; icon: React.ReactNode; value: string }[]>([{
     id: 1,
     title: "Feels like",
-    icon: <FaTemperatureHalf size={18} />,
+    icon: <FaTemperatureHalf size={20} />,
     value: `${data?.main.feels_like}°C`,
   },
   {
     id: 2,
     title: "Lowest Temp",
-    icon: <FaTemperatureArrowDown size={18} />,
+    icon: <FaTemperatureArrowDown size={20} />,
     value: `${data?.main.temp_min}°C`,
   },
   {
     id: 3,
     title: "Highest Temp",
-    icon: <FaTemperatureArrowUp size={18} />,
+    icon: <FaTemperatureArrowUp size={20} />,
     value: `${data?.main.temp_max}°C`,
   },]);
 
@@ -119,8 +119,8 @@ export function WeatherInfo({
           </div>
 
           {/**weather description */}
-          <div className="relative  flex flex-col py-2 gap-[80px] items-center justify-center">
-            <div className="w-full">
+          <div className="mt-5 md:mt-0 relative flex flex-col py-2 gap-[35px] md:gap-[45px] lg:gap-[80px] items-center justify-center">
+            <div className="w-full flex flex-col-reverse h-auto">
               <div className="flex flex-1 flex-col items-center justify-center">
                 <Image
                   src={`http://openweathermap.org/img/wn/${data?.weather[0].icon}@4x.png`}
@@ -138,6 +138,25 @@ export function WeatherInfo({
                   </p>
                 </div>
               </div>
+
+              {/**TEMPERATURES DISPLAYED ON THE RIGHT SIDE */}
+            <div className="flex md:flex-col gap-5 md:gap-0 md:items-start md:absolute mt-2 md:top-16  items-center justify-center w-auto  px-4  md:right-3 lg:right-16 md:w-[300px] top-4">
+              {weatherTemps.map((temp) => (
+                <div
+                  key={temp.id}
+                  className="flex flex-col md:flex-row text-start gap-2 mb-3 my-2 justify-start items-center"
+                >
+                  {temp.icon}
+                  <div className="flex flex-col items-start">
+                  <p className="text-sm md:text-md font-normal">
+                  {temp.title}:{" "}</p>
+                  <span className="ms-0 text-md md:text-lg font-medium">
+                      {temp.value.toString()}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
             </div>
 
             <div className="flex items-center h-[120px] justify-center md:w-full lg:w-[90%]">
@@ -150,37 +169,37 @@ export function WeatherInfo({
                   >
                     <div className="flex gap-1 items-center">
                       {item.icon}
-                      <p>{item.title}</p>
+                      <p className="text-sm md:text-lg">{item.title}</p>
                     </div>
 
-                    <h2>{item.value}</h2>
+                    <p className="text-sm font-medium md:text-md">{item.value}</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/**TEMPERATURES DISPLAYED ON THE RIGHT SIDE */}
-            <div className="absolute px-4 hidden md:block right-0 md:right-3 lg:right-16 w-auto md:w-[300px] top-16">
+            {/* *TEMPERATURES DISPLAYED ON THE RIGHT SIDE
+            <div className="absolute  flex md:block mt-2 md:top-16 gap- items-center justify-center w-auto  px-4  md:right-3 lg:right-16 md:w-[300px] top-4">
               {weatherTemps.map((temp) => (
                 <div
                   key={temp.id}
                   className="flex text-start gap-2 mb-3 my-2 justify-start items-center"
                 >
                   {temp.icon}
-                  <p className="font-normal">
+                  <p className="text-md font-normal">
                     {temp.title}:{" "}
-                    <span className="ms-2 font-medium">
+                    <span className="ms-0 text-sm font-medium">
                       {temp.value.toString()}
                     </span>
                   </p>
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
 
           {/**WEATHER HIGHLIGHTS */}
-          <div className="space-y-6 w-full">
-            <h2 className="text-[20px] sm:text-[22px] lg:text-[30px] font-medium mt-7">Weather Highlights</h2>
+          <div className="space-y-6 px-3 md:px-6 w-full">
+            <h2 className="text-md sm:text-[22px] lg:text-xl font-medium mt-7">Weather Highlights</h2>
 
            <div className="flex  justify-center flex-wrap w-full items-center">
                <Suspense fallback={<div>{"Loading..."}</div>}>
@@ -191,14 +210,14 @@ export function WeatherInfo({
 
           {/* ONE WEEK WEATHER FORECAST */}
           <div className="space-y-6 mt-12 w-full">
-            <h2 className="text-[20px] sm:text-[22px] lg:text-[30px] font-medium mt-7">Weekly Forecast</h2>
+            <h2 className="text-md sm:text-[22px] lg:text-xl font-medium mt-7">Weekly Forecast</h2>
 
             <WeeklyForecast coord={data?.coord as Coord} />
           </div>
 
           {/**WEATHER MAP */}
           <div className="space-y-6 mt-12 w-full">
-            <h2 className="text-[20px] sm:text-[22px] lg:text-[30px] font-medium mt-7">Weather Map</h2>
+            <h2 className="text-md sm:text-[22px] lg:text-xl font-medium mt-7">Weather Map</h2>
             <ClientWeatherMap
               lat={data?.coord.lat as number}
               lon={data?.coord.lon as number}

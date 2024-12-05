@@ -9,6 +9,7 @@ import { AirQualityData } from "@/types/weather";
 
 export default function AirQuality({ aqi }: { aqi:  AirQualityData | null | undefined}) {
   const [aqiDescription, setaqiDescription] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
 
   useEffect(() => {
@@ -18,26 +19,37 @@ export default function AirQuality({ aqi }: { aqi:  AirQualityData | null | unde
            aqi?.list[0].components
          );
          console.log("use callback re rendered");
+        
+         if (loading && responseFromAI === undefined) { 
+           setLoading(true);
+          }
          setaqiDescription(responseFromAI as string);
+        
        } catch (error) {
          console.log(error);
          return;
        }
      })();
+
+     return () => { 
+       setLoading(false);
+     }
      
-  }, [aqi]);
+  }, [aqi, loading]);
 
   console.log("AQI", aqi);
 
-  return (
-    !aqi ? (
-      <div className="h-5 w-5 border-b-2 border-gray-400 rounded-full animate-spin"></div>
-    ) : (
-        <div className="flex flex-col md:flex-row gap-4 justify-around w-full lg:w-[80%] items-center">
-            <AirQualityChart aqi={aqi?.list[0].main.aqi as number} />
-            <p className="text-sm text-center text-pretty">{aqiDescription}</p>
-        </div>
-    )
+  return !aqi ? (
+    <div className="h-5 w-5 border-b-2 mt-0 rounded-full animate-spin"></div>
+  ) : (
+    <div className="flex flex-col md:flex-row gap-2 justify-around w-full lg:w-[80%] items-center">
+      <AirQualityChart aqi={aqi?.list[0].main.aqi as number} />
+      {loading && !aqiDescription ? (
+        <div><span>Loading...</span></div>
+      ) : (
+        <p className="text-sm text-start text-pretty">{aqiDescription}</p>
+      )}
+    </div>
   );
 
 

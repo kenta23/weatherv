@@ -11,7 +11,7 @@ import {
 } from "recharts";
 
 export function AirQualityChart({ aqi }: { aqi: number }) {
-  const chartData = [{ aqi, fill: "#3EAE51" }];
+  const chartData = [{ aqi, fill: "url(#aqiGradientColor)" }];
   const chartConfig = {
     aqi: {
       label: "Air Quality",
@@ -30,25 +30,26 @@ export function AirQualityChart({ aqi }: { aqi: number }) {
 
 
   return (
-    <Card className="outline-none shadow-none border-none bg-transparent aspect-auto max-w-auto">
+    <Card className="outline-none shadow-none border-none bg-transparent
+     aspect-auto max-w-auto">
      <ResponsiveContainer width={250} height={"100%"}>
       <ChartContainer  
             config={chartConfig}
             color="#fff"
-            className="mx-auto min-h-[175px] text-white">
+            className="mx-auto min-h-[178px] text-white">
       <RadialBarChart
           data={chartData}
           startAngle={90}
           className='w-svw h-svh'
           endAngle={aqi * 72 + 90}
-          innerRadius={aqiScreenWidth < 725 ? 60 : 80}
-          outerRadius={aqiScreenWidth < 725 ? 100 : 120}
+          innerRadius={aqiScreenWidth < 725 ? 70 : 80}
+          outerRadius={aqiScreenWidth < 725 ? 110 : 120}
         >
           {/* Define the gradient */}
           <defs>
-            <linearGradient id="gradientColor" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#8b9dee" /> {/* Start color */}
-              <stop offset="100%" stopColor="#D13535" /> {/* End color */}
+            <linearGradient id="aqiGradientColor" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#17d440" /> {/* Start color */}
+              <stop offset="100%" stopColor="#e60b29" /> {/* End color */}
             </linearGradient>
           </defs>
 
@@ -56,8 +57,9 @@ export function AirQualityChart({ aqi }: { aqi: number }) {
             gridType="circle"
             radialLines={false}
             stroke="none"
-            className="first:fill-[#c0e6c7] last:fill-[#77ad80]"
-            polarRadius={aqiScreenWidth < 725 ? [67, 55] : [85, 75]}
+            className="first:fill-[#f1ebe7] last:fill-[#a3a8a4]"
+            polarRadius={aqiScreenWidth < 725 ? [75, 65] : [87, 75]}
+            
           />
           <RadialBar dataKey="aqi" background cornerRadius={10} />
 
