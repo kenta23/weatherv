@@ -10,7 +10,7 @@ export default function Page() {
   const springs = useSpring({
     from: { opacity: 0 },
     to: { opacity: 1 },
-    config: { duration: 2000 },
+    config: { duration: 800 },
   })
 
   useEffect(() => { 

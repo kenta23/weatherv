@@ -41,7 +41,7 @@ export function AirQualityChart({ aqi }: { aqi: number }) {
           data={chartData}
           startAngle={90}
           className='w-svw h-svh'
-          endAngle={aqi * 72 + 90}
+          endAngle={(360 - ((aqi - 1) * 72)) + 90}
           innerRadius={aqiScreenWidth < 725 ? 70 : 80}
           outerRadius={aqiScreenWidth < 725 ? 110 : 120}
         >

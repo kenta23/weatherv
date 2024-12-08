@@ -63,7 +63,7 @@ export default function BackgroundProvider({
    return !loading ? (
     <div
       className={cn(
-        "min-h-screen bg-blend-screen relative max-h-max h-full  w-full",
+        "min-h-screen overflow-hidden bg-blend-screen relative max-h-max h-full  w-full",
         {
           "bg-gradient-to-tr from-[#222223] to-[#3D3E40]":
             background?.time === "night",

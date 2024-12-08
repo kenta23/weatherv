@@ -105,34 +105,34 @@ export function WeatherInfo({
   return (
     <div className="text-white w-full flex flex-col">
       {/**location and date */}
-          <div className="flex items-start w-auto h-auto gap-3">
-            <IoLocationSharp size={27} color="#D13535" />
-            <div className="flex flex-col ">
-              <h2 className="text-[25px] font-medium">
+          <div className="flex items-center w-auto h-auto gap-2">
+            <IoLocationSharp className="size-5 md:size-7 lg:size-8" color="#D13535" />
+            <div className="flex flex-col space-y-0 sm:space-y-1">
+              <h2 className="text-md md:text-lg lg:text-[25px] font-medium">
                 {data?.name.charAt(0).toUpperCase()}
                 {data?.name.slice(1)}
               </h2>
-              <p className="font-light text-[18px]">
+              <p className="font-light text-sm">
                 {formatDate(Number(data?.dt))}
               </p>
             </div>
           </div>
 
           {/**weather description */}
-          <div className="mt-5 md:mt-0 relative flex flex-col py-2 gap-[35px] md:gap-[45px] lg:gap-[80px] items-center justify-center">
+          <div className="mt-2 md:mt-0 relative flex flex-col py-2 gap-[30px] md:gap-[45px] lg:gap-[80px] items-center justify-center">
             <div className="w-full flex flex-col-reverse h-auto">
-              <div className="flex flex-1 flex-col items-center justify-center">
+              <div className="flex -mt-2 flex-1 flex-col items-center justify-center">
                 <Image
                   src={`http://openweathermap.org/img/wn/${data?.weather[0].icon}@4x.png`}
                   alt={data?.weather[0].description.toString() || ""}
                   quality={100}
-                  width={200}
                   height={800}
-                  className="drop-shadow-lg"
+                  width={100} 
+                  className="drop-shadow-lg w-40 md:w-44 lg:w-52"
                 />
-                <div className="flex -mt-2 flex-col items-center gap-1">
-                  <p className="text-[40px] font-medium">{data?.main.temp}°C</p>
-                  <p className="text-[20px] font-normal">
+                <div className="flex -mt-5 flex-col items-center gap-1">
+                  <h4 className="text-xl md:text-2xl lg:text-[27px] font-medium">{data?.main.temp}°C</h4>
+                  <p className="text-sm md:text-[17px] lg:text-lg font-normal">
                     {data?.weather[0].description.charAt(0).toUpperCase()}
                     {data?.weather[0].description.slice(1)}
                   </p>
@@ -140,17 +140,17 @@ export function WeatherInfo({
               </div>
 
               {/**TEMPERATURES DISPLAYED ON THE RIGHT SIDE */}
-            <div className="flex md:flex-col gap-5 md:gap-0 md:items-start md:absolute mt-2 md:top-16  items-center justify-center w-auto  px-4  md:right-3 lg:right-16 md:w-[300px] top-4">
+            <div className="flex md:flex-col gap-3 md:gap-0 items-center  md:absolute mt-2 justify-center w-auto px-4 md:right-10 lg:right-16 md:w-[270px] top-4 md:top-9">
               {weatherTemps.map((temp) => (
                 <div
                   key={temp.id}
-                  className="flex flex-col md:flex-row text-start gap-2 mb-3 my-2 justify-start items-center"
+                  className="flex gap-2  md:self-start md:space-y-2 justify-center items-center"
                 >
                   {temp.icon}
-                  <div className="flex flex-col items-start">
-                  <p className="text-sm md:text-md font-normal">
+                  <div className="flex flex-col items-center md:items-start">
+                  <p className="text-[10px] lg:text-sm font-normal">
                   {temp.title}:{" "}</p>
-                  <span className="ms-0 text-md md:text-lg font-medium">
+                  <span className="ms-0 text-sm md:text-lg font-medium">
                       {temp.value.toString()}
                     </span>
                   </div>
@@ -159,42 +159,25 @@ export function WeatherInfo({
             </div>
             </div>
 
-            <div className="flex items-center h-[120px] justify-center md:w-full lg:w-[90%]">
+            <div className="flex items-center h-auto py-3 justify-center w-full lg:w-[90%]">
               <div className="flex w-full gap-3 justify-around">
                 {/**PRESSURE, HUMIDITY, VISIBLITY, WIND */}
                 {storeWeatherInfo.filter(Boolean).map((item) => (
                   <div
-                    className="flex flex-col gap-2 items-center"
+                    className="flex flex-col gap-1 items-center"
                     key={item.id}
                   >
                     <div className="flex gap-1 items-center">
                       {item.icon}
-                      <p className="text-sm md:text-lg">{item.title}</p>
+                      <p className="text-[10px] md:text-lg">{item.title}</p>
                     </div>
 
-                    <p className="text-sm font-medium md:text-md">{item.value}</p>
+                    <p className="text-sm text-center font-medium md:text-md">{item.value}</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* *TEMPERATURES DISPLAYED ON THE RIGHT SIDE
-            <div className="absolute  flex md:block mt-2 md:top-16 gap- items-center justify-center w-auto  px-4  md:right-3 lg:right-16 md:w-[300px] top-4">
-              {weatherTemps.map((temp) => (
-                <div
-                  key={temp.id}
-                  className="flex text-start gap-2 mb-3 my-2 justify-start items-center"
-                >
-                  {temp.icon}
-                  <p className="text-md font-normal">
-                    {temp.title}:{" "}
-                    <span className="ms-0 text-sm font-medium">
-                      {temp.value.toString()}
-                    </span>
-                  </p>
-                </div>
-              ))}
-            </div> */}
           </div>
 
           {/**WEATHER HIGHLIGHTS */}

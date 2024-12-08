@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "WeatherV",
-  description: "A realtime weather forecast",
+  description: "realtime weather forecast",
 };
 
 export default function RootLayout({
@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${inter.className} antialiased overflow-x-hidden`}>
         <Providers>
           <HydrateQueryClient>
              <BackgroundProvider>{children}</BackgroundProvider>

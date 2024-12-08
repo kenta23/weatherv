@@ -51,11 +51,11 @@ export default function Weather({ lat, lon }: { lat: number; lon: number }) {
   return isLoading ? (
     <LoadingUi />
   ) : (
-      <div className={cn("w-full h-full min-h-screen first-letter:text-white")}>
+      <div className={cn("w-full overflow-y-hidden h-full min-h-screen first-letter:text-white")}>
         <SearchInput />
 
         {/* WEATHER ALL INFOS */}
-        <div className="mt-[45px] mx-[20px] md:mx-[55px] lg:mx-[85px]">
+        <div className="mt-[35px] md:mt-[38px] lg:mt-[45px]  mx-[20px] md:mx-[55px] lg:mx-[85px]">
           <WeatherInfo
             key={weatherData?.id}
             data={weatherData as WeatherData}

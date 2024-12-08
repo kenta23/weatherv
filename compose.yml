@@ -1,0 +1,17 @@
+services:
+  weatherv:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    image: weatherv-docker
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./app
+          target: /app
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: package.json
+    ports:
+      - "3000:3000"
